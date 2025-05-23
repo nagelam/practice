@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Контакты</title>
+</head>
+<body>
+    <h1>Список контактов</h1>
+    <form method="get" action="{{ url_for('list_contacts') }}">
+        <input type="text" name="search" placeholder="Поиск..." value="{{ search }}">
+        <button type="submit">Поиск</button>
+    </form>
+    <table border="1">
+        <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Полное имя</th>
+            <th>Рабочий телефон</th>
+            <th>Домашний телефон</th>
+            <th>Действия</th>
+        </tr>
+        {% for contact in contacts %}
+        <tr>
+            <td>{{ contact.family }}</td>
+            <td>{{ contact.given }}</td>
+            <td>{{ contact.full_name }}</td>
+            <td>{{ contact.tel_work }}</td>
+            <td>{{ contact.tel_home }}</td>
+            <td>
+                <a href="{{ url_for('edit_contact', index=loop.index0) }}">Редактировать</a>
+                <form action="{{ url_for('delete_contact', index=loop.index0) }}" method="post" style="display:inline;">
+                    <button type="submit" onclick="return confirm('Удалить контакт?');">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{{ url_for('add_contact') }}">Добавить контакт</a>
+    <br><br>
+    <a href="{{ url_for('export_vcf') }}">Экспорт VCF</a> | 
+    <a href="{{ url_for('export_csv') }}">Экспорт CSV</a>
+</body>
+</html>

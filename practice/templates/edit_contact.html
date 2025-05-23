@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{% if contact %}Редактирование контакта{% else %}Добавление контакта{% endif %}</title>
+</head>
+<body>
+    <h1>{% if contact %}Редактирование контакта{% else %}Добавление контакта{% endif %}</h1>
+    <form method="post">
+        <label>Фамилия:</label><br>
+        <input type="text" name="family" value="{{ contact.family if contact.family is defined else '' }}"><br>
+        <label>Имя:</label><br>
+        <input type="text" name="given" value="{{ contact.given if contact.given is defined else '' }}"><br>
+        <label>Полное имя:</label><br>
+        <input type="text" name="full_name" value="{{ contact.full_name if contact.full_name is defined else '' }}"><br>
+        <label>Рабочий телефон:</label><br>
+        <input type="text" name="tel_work" value="{{ contact.tel_work if contact.tel_work is defined else '' }}"><br>
+        <label>Домашний телефон:</label><br>
+        <input type="text" name="tel_home" value="{{ contact.tel_home if contact.tel_home is defined else '' }}"><br><br>
+        <button type="submit">Сохранить</button>
+    </form>
+    <br>
+    <a href="{{ url_for('list_contacts') }}">Назад к списку контактов</a>
+</body>
+</html>
